@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+#define MAX_ALUNOS 50
+
+using namespace std;
+
+typedef struct{
+	char nome[50];
+	float notas[3];
+	char sexo[10];
+	int idade;
+	float media;
+	int matricula;
+	int ativo;
+}aluno;
+aluno alunos[MAX_ALUNOS];
+void menu();
+void cadastrar();
+void remover();
+void reprovados();
+void pesquisar();
+void listar();
+
+main(){
+	
+	menu();
+	cadastrar();
+
+return 0;
+}
+
+void menu(){
+
+int op;
+
+do{
+system("cls");
+cout<<"Cadastro de alunos - Unicarioca"<<endl;
+cout<<endl<<"1 - Cadastrar Aluno"<<endl;
+cout<<"2 - Remover Aluno"<<endl;
+cout<<"3 - Pesquisar Aluno"<<endl;
+cout<<"4 - Aluno Reprovados"<<endl;
+cout<<"5 - Listar Alunos"<<endl;
+
+cout<<"0- Sair"<<endl<<endl;
+cout<<"Comando: "; cin>>op;
+getchar();
+switch(op){
+case 1:
+	cadastrar();
+break;
+
+case 5:
+	listar();
+break;
+}
+
+
+	getchar();
+
+}while(op!=0);
+
+}
+
+void cadastrar(){
+		system("cls");
+
+	char nome[50];
+	float notas[3];
+	char sexo[10];
+	int idade;
+	float media;
+	int matricula;
+	int ativo, op,i;
+	
+do{
+	cout<<"***CADASTRO DO ALUNO***"<<endl;
+	cout<<endl<<"Nome: ";
+	fgets(nome,sizeof(nome),stdin);
+	cout<<endl<<"Matricula: ";cin>>matricula;
+	cout<<endl<<"Sexo: ";
+	fgets(sexo,sizeof(sexo),stdin);
+	cout<<endl<<"Idade: ";cin>>idade;
+	cout<<endl<<"AV1 ";cin>>notas[0];
+	cout<<endl<<"AV2 ";cin>>notas[1];
+	cout<<endl<<"AV3 ";cin>>notas[2];
+	
+for(int i=0;i<MAX_ALUNOS; i++){
+	if(alunos[i].ativo==0){
+		alunos[i].notas[0] = notas[0];
+		alunos[i].notas[1] = notas[1];
+		alunos[i].notas[2] = notas[2];
+		strcpy(alunos[i].nome, nome);
+		alunos[i].ativo=1;
+		break;
+	}
+}
+cout<<endl<<"Parabens! Aluno cadastrado com sucesso"<<endl;
+	cout<<endl<<"1 - Continuar"<<endl;
+	cout<<"0 - Sair"<<endl; 
+	cout<<endl<<"Comando: ";cin>>op;
+  }while(op!=0);
+}
+
+void remover(){
+}
+
+void reprovados (){
+}
+
+void pesquisar(){	
+}
+
+void listar(){
+	int op;
+	system("cls");
+	cout<<"Lista de Alunos"<<endl;
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].ativo==1){
+		
+		cout<<endl<<"*************"<<endl;
+		printf("Nome: %s\n", alunos[i].nome);
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<endl<<"*************"<<endl<<endl;
+	
+}
+	}
+}
+
