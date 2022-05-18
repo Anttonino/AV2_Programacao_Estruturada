@@ -104,7 +104,8 @@ cout<<endl<<"Parabens! Aluno cadastrado com sucesso"<<endl;
 	cout<<endl<<"1 - Continuar"<<endl;
 	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
-  }while(op!=0);
+	fflush(stdin);
+	  }while(op!=0);
 }
 
 void remover(){
