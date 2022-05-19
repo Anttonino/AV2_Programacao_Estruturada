@@ -45,7 +45,7 @@ cout<<"3 - Pesquisar Aluno"<<endl;
 cout<<"4 - Aluno Reprovados"<<endl;
 cout<<"5 - Listar Alunos"<<endl;
 
-cout<<"0 - Sair"<<endl<<endl;
+cout<<"0- Sair"<<endl<<endl;
 cout<<"Comando: "; cin>>op;
 getchar();
 switch(op){
@@ -53,6 +53,10 @@ case 1:
 	cadastrar();
 break;
 
+case 2:
+	remover();
+break;
+	
 case 5:
 	listar();
 break;
@@ -83,9 +87,9 @@ do{
 	cout<<endl<<"Matricula: ";cin>>matricula;
 	cout<<endl<<"Idade: ";cin>>idade;
 	cout<<endl<<"Sexo: ";cin>>sexo;
-	cout<<endl<<"AV1: ";cin>>notas[0];
-	cout<<endl<<"AV2: ";cin>>notas[1];
-	cout<<endl<<"AV3: ";cin>>notas[2];
+	cout<<endl<<"AV1 ";cin>>notas[0];
+	cout<<endl<<"AV2 ";cin>>notas[1];
+	cout<<endl<<"AV3 ";cin>>notas[2];
 	
 for(int i=0;i<MAX_ALUNOS; i++){
 	if(alunos[i].ativo==0){
@@ -102,16 +106,25 @@ for(int i=0;i<MAX_ALUNOS; i++){
 }
 cout<<endl<<"Parabens! Aluno cadastrado com sucesso"<<endl;
 	cout<<endl<<"1 - Continuar"<<endl;
-	cout<<endl<<"0 - Voltar "<<endl;
-	fflush(stdin); 
+	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
-	}while(op!=0);
+	fflush(stdin);
+
+switch(op){
+	case 0:
+		menu();
+	break;
+}
+	  }while(op!=0);
+
 }
 
 void remover(){
+
 }
 
 void reprovados (){
+
 }
 
 void pesquisar(){	
@@ -138,4 +151,3 @@ void listar(){
 }
 	}
 }
-
