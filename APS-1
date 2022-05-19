@@ -28,6 +28,7 @@ main(){
 	
 	menu();
 	cadastrar();
+	
 
 return 0;
 }
@@ -53,8 +54,8 @@ case 1:
 	cadastrar();
 break;
 
-case 2:
-	remover();
+case 4:
+	reprovados();
 break;
 	
 case 5:
@@ -120,11 +121,55 @@ switch(op){
 }
 
 void remover(){
+	
+
+
+
 
 }
 
-void reprovados (){
 
+
+void reprovados (){
+	
+	int op;
+	float media;
+	media=0;
+
+system("cls");
+cout<<"media dos Alunos Cadastrados"<<endl;
+
+for(int i=0;i<MAX_ALUNOS;i++){
+
+if(alunos[i].notas[0]<alunos[i].notas[2]){ //AV2+AV3
+	
+	media = (alunos[i].notas[1]+alunos[i].notas[2])/2;	
+
+}else{ //AV1+AV2
+	
+	media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
+	
+}if(alunos[i].notas[1]<alunos[i].notas[2]){ //av1+av3
+	
+	media = (alunos[i].notas[0]+alunos[i].notas[2])/2;	
+
+}else{ //av1+av2
+	media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
+}
+
+if(alunos[i].ativo==1){
+cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<media;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+}
+
+
+}
 }
 
 void pesquisar(){	
