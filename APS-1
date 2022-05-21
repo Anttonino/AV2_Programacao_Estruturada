@@ -86,7 +86,7 @@ do{
 	cout<<"***CADASTRO DO ALUNO***"<<endl;
 	cout<<endl<<"Nome: ";
 	fgets(nome,sizeof(nome),stdin);
-	cout<<endl<<"Matricula: ";cin>>matricula;
+	cout<<endl<<"Matrícula: ";cin>>matricula;
 	cout<<endl<<"Idade: ";cin>>idade;
 	cout<<endl<<"Sexo: ";cin>>sexo;
 	cout<<endl<<"AV1 ";cin>>notas[0];
@@ -106,7 +106,7 @@ for(int i=0;i<MAX_ALUNOS; i++){
 		break;
 	}
 }
-cout<<endl<<"Parabens! Aluno cadastrado com sucesso"<<endl;
+cout<<endl<<"Parabéns! Aluno cadastrado com sucesso"<<endl;
 	cout<<endl<<"1 - Continuar"<<endl;
 	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
@@ -159,13 +159,13 @@ void aprovados(){
 		if(alunos[i].media >= 7){
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -196,13 +196,13 @@ void aprovados_7(){
 		if(alunos[i].media >= 7 && alunos[i].media < 9){
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -233,13 +233,13 @@ void aprovados_9(){
 		if(alunos[i].media >= 9){
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -272,13 +272,13 @@ void reprovados(){
 		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -310,13 +310,13 @@ void reprovados_7(){
 		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -348,13 +348,13 @@ void reprovados_5(){
 		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
@@ -383,20 +383,20 @@ system ("cls");
 
 cout<<"Buscar alunos"<<endl;
 
-cout<<"Digitie o número de matrícula do aluno "; 
-cout<<endl<<"Matrícula: "<<; cin>>matricula;
+cout<<"Digite o número de matrícula do aluno "; 
+cout<<endl<<"Matrícula: "; cin>>matricula;
 
 for(int i=0;i<MAX_ALUNOS;i++){
 	if (alunos[i].matricula,matricula==0){
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 	}
 }
@@ -469,13 +469,13 @@ void tds_alunos(){
 		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
-		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 		cout<<"Sexo: "<<alunos[i].sexo<<endl;
 		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<"Média: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 	}
