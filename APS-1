@@ -1,3 +1,5 @@
+// Atualizado no dia 16:22 21/05/2022
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -111,6 +113,7 @@ cout<<endl<<"Parabéns! Aluno cadastrado com sucesso"<<endl;
 	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
 	getchar();
+	cout<<" " <<endl;
 
 switch(op){
 	case 0:
