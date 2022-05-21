@@ -7,29 +7,27 @@
 using namespace std;
 
 typedef struct{
-	char nome[50];
-	float notas[3];
-	char sexo[10];
-	int idade;
-	float media;
-	int matricula;
-	int ativo;
-	
+
+	char nome[50], sexo[10];
+	float notas[3], media;
+	int idade, matricula, ativo, aprovados_7, aprovados_9, reprovados_5, reprovados_7;
+
 }aluno;
+
 aluno alunos[MAX_ALUNOS];
+
 void menu();
 void cadastrar();
-void remover();
-void reprovados();
 void pesquisar();
-void listar();
+void menu_lista();
+void tds_alunos();
+void media();
+void aprovados();
 
 main(){
 	
 	menu();
-	cadastrar();
 	
-
 return 0;
 }
 
@@ -41,28 +39,23 @@ do{
 system("cls");
 cout<<"Cadastro de alunos - Unicarioca"<<endl;
 cout<<endl<<"1 - Cadastrar Aluno"<<endl;
-cout<<"2 - Remover Aluno"<<endl;
-cout<<"3 - Pesquisar Aluno"<<endl;
-cout<<"4 - Aluno Reprovados"<<endl;
-cout<<"5 - Listar Alunos"<<endl;
+cout<<"2 - Pesquisar Aluno"<<endl;
+cout<<"3 - Listar Alunos"<<endl;
+cout<<"4 - Remover Aluno"<<endl;
 
 cout<<"0- Sair"<<endl<<endl;
 cout<<"Comando: "; cin>>op;
 getchar();
 switch(op){
+
 case 1:
 	cadastrar();
 break;
-
-case 4:
-	reprovados();
-break;
 	
-case 5:
-	listar();
+case 3:
+	menu_lista();
 break;
 }
-
 
 	getchar();
 
@@ -71,16 +64,13 @@ break;
 }
 
 void cadastrar(){
-		system("cls");
 
-	char nome[50];
-	float notas[3];
-	char sexo[10];
-	int idade;
-	float media;
-	int matricula;
-	int ativo, op,i;
-	
+	system("cls");
+
+	char nome[50], sexo[10];
+	float notas[3], media;
+    int matricula, idade, ativo, op;
+
 do{
 	cout<<"***CADASTRO DO ALUNO***"<<endl;
 	cout<<endl<<"Nome: ";
@@ -109,7 +99,7 @@ cout<<endl<<"Parabens! Aluno cadastrado com sucesso"<<endl;
 	cout<<endl<<"1 - Continuar"<<endl;
 	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
-	fflush(stdin);
+	getchar();
 
 switch(op){
 	case 0:
@@ -117,69 +107,161 @@ switch(op){
 	break;
 }
 	  }while(op!=0);
-
+getchar();
 }
 
-void remover(){
-	
+void media(){
 
-
-
-
-}
-
-
-
-void reprovados (){
-	
 	int op;
-	float media;
-	media=0;
-
-system("cls");
-cout<<"media dos Alunos Cadastrados"<<endl;
 
 for(int i=0;i<MAX_ALUNOS;i++){
+	
+	if (alunos[i].notas[0]<alunos[i].notas[2] && alunos[i].notas[1]>alunos[i].notas[0]) 
+	{
+	alunos[i].media = (alunos[i].notas[1]+alunos[i].notas[2])/2;
+	}
+	
+	else if (alunos[i].notas[1]<alunos[i].notas[2] && alunos[i].notas[0]>alunos[i].notas[1])
+	{
+	alunos[i].media = (alunos[i].notas[0]+alunos[i].notas[2])/2;	
+	}
 
-if(alunos[i].notas[0]<alunos[i].notas[2]){ //AV2+AV3
+	else if (alunos[i].notas[0]>alunos[i].notas[2] && alunos[i].notas[1]>alunos[i].notas[2])
+	{
+		alunos[i].media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
+	}
 	
-	media = (alunos[i].notas[1]+alunos[i].notas[2])/2;	
+	else if (alunos[i].notas[0]==0 && alunos[i].notas[1]==0 && alunos[i].notas[2]==0)
+	{
+		alunos[i].media = 0;
+	}
 
-}else{ //AV1+AV2
-	
-	media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
-	
-}if(alunos[i].notas[1]<alunos[i].notas[2]){ //av1+av3
-	
-	media = (alunos[i].notas[0]+alunos[i].notas[2])/2;	
-
-}else{ //av1+av2
-	media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
+}
 }
 
-if(alunos[i].ativo==1){
-cout<<"-------------------------------"<<endl;
+void aprovados(){
+	int op;
+	
+	system("cls");
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media >= 7){
+		
+		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
 		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
-		cout<<"Media: "<<media;
+		cout<<"Media: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
+}
 
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
 
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+
+}
+
+void reprovados(){
+	int op;
+	
+	system("cls");
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media < 7){
+		
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
 
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+}
+	
 void pesquisar(){	
 }
 
-void listar(){
-	int op;
-	system("cls");
-	cout<<"Lista de Alunos Cadastrados"<<endl;
+void menu_lista(){
 	
+	int op_;
+	
+do{
+	system("cls");
+	cout<<endl<<"Lista de alunos cadastrados"<<endl;
+
+    cout<<"1 - Todos os Alunos"<<endl;	
+	cout<<"2 - Alunos Aprovados"<<endl;
+	cout<<"3 - Alunos Reprovados"<<endl;
+	cout<<"4 - Alunos reprovados com média inferior a 5"<<endl;
+	cout<<"5 - Alunos reprovados com média inferior a 7"<<endl;
+	cout<<"6 - Alunos aprovados com média superior ou igual a 7"<<endl;
+	cout<<"7 - Alunos aprovados com média superior ou igual a 9"<<endl;
+
+cout<<"0- Sair"<<endl<<endl;
+cout<<"Comando: "; cin>>op_;
+getchar();
+switch(op_){
+	case 1:
+	   tds_alunos();
+	break;
+	
+	case 2:
+		aprovados();
+	break;
+	
+	case 3:
+		reprovados();
+	break;
+}
+}while(op_!=0);
+
+}
+
+void tds_alunos(){
+	
+	int op;
+	
+	system("cls");
+	media();
+	
+	cout<<"Lista de Todos os Alunos Cadastrados"<<endl;
+		
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].ativo==1){
 		
@@ -191,8 +273,29 @@ void listar(){
 		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
 		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
+	
+
 	
 }
 	}
+
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+	
+	
 }
