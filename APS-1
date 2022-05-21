@@ -89,9 +89,9 @@ do{
 	cout<<endl<<"Matrícula: ";cin>>matricula;
 	cout<<endl<<"Idade: ";cin>>idade;
 	cout<<endl<<"Sexo: ";cin>>sexo;
-	cout<<endl<<"AV1 ";cin>>notas[0];
-	cout<<endl<<"AV2 ";cin>>notas[1];
-	cout<<endl<<"AV3 ";cin>>notas[2];
+	cout<<endl<<"AV1: ";cin>>notas[0];
+	cout<<endl<<"AV2: ";cin>>notas[1];
+	cout<<endl<<"AV3: ";cin>>notas[2];
 	
 for(int i=0;i<MAX_ALUNOS; i++){
 	if(alunos[i].ativo==0){
@@ -171,8 +171,8 @@ void aprovados(){
 }
 
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -208,8 +208,8 @@ void aprovados_7(){
 }
 
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -245,8 +245,8 @@ void aprovados_9(){
 }
 
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -283,8 +283,8 @@ void reprovados(){
 }
 }
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -321,8 +321,8 @@ void reprovados_7(){
 }
 }
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -359,8 +359,8 @@ void reprovados_5(){
 }
 }
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 cout<<"Comando: "; cin>>op; 
 
@@ -480,8 +480,8 @@ void tds_alunos(){
 }
 	}
 
-cout<<"1 - Para voltar ao menu de listagem"<<endl;
-cout<<"0 - Para voltar ao menu principal"<<endl;
+cout<<"1 - Menu de listagem"<<endl;
+cout<<"0 - Menu principal"<<endl;
 
 
 cout<<"Comando: "; cin>>op; 
