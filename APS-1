@@ -50,7 +50,7 @@ cout<<"2 - Pesquisar Aluno"<<endl;
 cout<<"3 - Listar Alunos"<<endl;
 cout<<"4 - Remover Aluno"<<endl;
 
-cout<<"0- Sair"<<endl<<endl;
+cout<<"0 - Sair"<<endl<<endl;
 cout<<"Comando: "; cin>>op;
 getchar();
 switch(op){
