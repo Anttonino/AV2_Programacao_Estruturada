@@ -61,9 +61,9 @@ case 1:
 	cadastrar();
 break;
 	
-	case 2:
-		pesquisar();
-	break;
+case 2:
+	pesquisar();
+break;
 	
 case 3:
 	menu_lista();
@@ -85,7 +85,7 @@ void cadastrar(){
     int matricula, idade, ativo, op;
 
 do{
-	cout<<"***CADASTRO DO ALUNO***"<<endl;
+	cout<<endl<<"***CADASTRO DO ALUNO***"<<endl;
 	cout<<endl<<"Nome: ";
 	fgets(nome,sizeof(nome),stdin);
 	cout<<endl<<"Matrícula: ";cin>>matricula;
@@ -108,7 +108,7 @@ for(int i=0;i<MAX_ALUNOS; i++){
 		break;
 	}
 }
-cout<<endl<<"Parabéns! Aluno cadastrado com sucesso"<<endl;
+cout<<endl<<"Parabéns! Aluno cadastrado com sucesso!"<<endl;
 	cout<<endl<<"1 - Continuar"<<endl;
 	cout<<"0 - Sair"<<endl; 
 	cout<<endl<<"Comando: ";cin>>op;
@@ -384,10 +384,11 @@ void pesquisar(){
 int matricula;
 system ("cls");
 
-cout<<"Buscar alunos"<<endl;
-
-cout<<"Digite o número de matrícula do aluno "; 
-cout<<endl<<"Matrícula: "; cin>>matricula;
+cout<<endl<<"***********BUSCA DO ALUNO***********"<<endl;
+cout<<"------------------------------------------------------------"<<endl;
+cout<<"A busca deve ser feito pela o número de matrícula do aluno."<<endl; 
+cout<<"------------------------------------------------------------"<<endl;
+cout<<endl<<"Digite a Matrícula: "; cin>>matricula;
 
 for(int i=0;i<MAX_ALUNOS;i++){
 	if (alunos[i].matricula,matricula==0){
@@ -412,9 +413,9 @@ void menu_lista(){
 	
 do{
 	system("cls");
-	cout<<endl<<"Lista de alunos cadastrados"<<endl;
-
-    cout<<"1 - Todos os Alunos"<<endl;	
+	cout<<endl<<"*******SITUACAO DOS ALUNOS CADASTRADOS********"<<endl;
+	cout<<"----------------------------------------------------"<<endl;
+    	cout<<"1 - Todos os Alunos"<<endl;	
 	cout<<"2 - Alunos Aprovados"<<endl;
 	cout<<"3 - Alunos Reprovados"<<endl;
 	cout<<"4 - Alunos reprovados com média inferior a 5"<<endl;
@@ -465,11 +466,10 @@ void tds_alunos(){
 	system("cls");
 	media();
 	
-	cout<<"Lista de Todos os Alunos Cadastrados"<<endl;
-		
-	for(int i=0;i<MAX_ALUNOS;i++){
+	cout<<endl<<"***********LISTA DE ALUNOS CADASTRADOS***********"<<endl;
+
+for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].ativo==1){
-		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
 		cout<<"Matrícula: "<<alunos[i].matricula<<endl;
