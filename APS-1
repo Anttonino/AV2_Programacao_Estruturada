@@ -419,7 +419,7 @@ do{
 	cout<<"6 - Alunos aprovados com média superior ou igual a 7"<<endl;
 	cout<<"7 - Alunos aprovados com média superior ou igual a 9"<<endl;
 
-cout<<"0- Sair"<<endl<<endl;
+cout<<"0 - Sair"<<endl<<endl;
 cout<<"Comando: "; cin>>op_;
 getchar();
 switch(op_){
