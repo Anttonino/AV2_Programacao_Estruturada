@@ -1,4 +1,4 @@
-// Atualizado no dia 21/05/2022 19:40
+// Atualizado no dia 21/05/2022 19:37
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,6 +67,10 @@ void menu(){
 				
 			case 3:
 				menu_lista();
+			break;
+			
+			case 0:
+				return;
 			break;
 		}
 		
