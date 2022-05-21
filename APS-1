@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string.h>
+#include <locale.h>
 #define MAX_ALUNOS 50
 
 using namespace std;
@@ -10,7 +11,7 @@ typedef struct{
 
 	char nome[50], sexo[10];
 	float notas[3], media;
-	int idade, matricula, ativo, aprovados_7, aprovados_9, reprovados_5, reprovados_7;
+	int idade, matricula, ativo;
 
 }aluno;
 
@@ -23,10 +24,16 @@ void menu_lista();
 void tds_alunos();
 void media();
 void aprovados();
+void aprovados_7();
+void aprovados_9();
+void reprovados_7();
+void reprovados_5();
 
 main(){
 	
-	menu();
+setlocale(LC_ALL, "Portuguese");
+	
+menu();
 	
 return 0;
 }
@@ -51,6 +58,10 @@ switch(op){
 case 1:
 	cadastrar();
 break;
+	
+	case 2:
+		pesquisar();
+	break;
 	
 case 3:
 	menu_lista();
@@ -112,7 +123,7 @@ getchar();
 
 void media(){
 
-	int op;
+	int op, ZERO;
 
 for(int i=0;i<MAX_ALUNOS;i++){
 	
@@ -140,13 +151,12 @@ for(int i=0;i<MAX_ALUNOS;i++){
 }
 
 void aprovados(){
-	int op;
+		int op;
 	
 	system("cls");
-	
+	media();
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media >= 7){
-		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
 		cout<<"Matricula: "<<alunos[i].matricula<<endl;
@@ -159,6 +169,7 @@ void aprovados(){
 		cout<<endl<<"-------------------------------"<<endl<<endl;
 }
 }
+
 
 cout<<"1 - Para voltar ao menu de listagem"<<endl;
 cout<<"0 - Para voltar ao menu principal"<<endl;
@@ -174,16 +185,90 @@ switch(op){
 		menu();
 	break;
 }
+}
 
+void aprovados_7(){
+	int op;
+	
+	system("cls");
+	media();
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media >= 7 && alunos[i].media < 9){
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+}
+}
+
+
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+}
+
+void aprovados_9(){
+	int op;
+	
+	system("cls");
+	media();
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media >= 9){
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+}
+}
+
+
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
 }
 
 void reprovados(){
 	int op;
 	
 	system("cls");
+	media();
 	
 	for(int i=0;i<MAX_ALUNOS;i++){
-		if(alunos[i].media < 7){
+		if(alunos[i].media < 7 && alunos[i].ativo==1){
 		
 		cout<<"-------------------------------"<<endl;
 		cout<<"Nome: "<<alunos[i].nome;
@@ -214,7 +299,108 @@ switch(op){
 }
 }
 	
-void pesquisar(){	
+void reprovados_7(){
+	int op;
+	
+	system("cls");
+	media();
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media < 7 && alunos[i].media > 5){
+		
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+}
+}
+
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+}
+
+void reprovados_5(){
+		int op;
+	
+	system("cls");
+	media();
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		if(alunos[i].media <= 5 && alunos[i].ativo==1){
+		
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+}
+}
+
+cout<<"1 - Para voltar ao menu de listagem"<<endl;
+cout<<"0 - Para voltar ao menu principal"<<endl;
+
+cout<<"Comando: "; cin>>op; 
+
+switch(op){
+	case 1:
+		menu_lista();
+	break;
+	
+	case 0:
+		menu();
+	break;
+}
+	
+}
+	
+void pesquisar(){
+
+int matricula;
+system ("cls");
+
+cout<<"Buscar alunos"<<endl;
+
+cout<<"Digitie o número de matrícula do aluno "; 
+cout<<endl<<"Matrícula: "<<; cin>>matricula;
+
+for(int i=0;i<MAX_ALUNOS;i++){
+	if (alunos[i].matricula,matricula==0){
+		cout<<"-------------------------------"<<endl;
+		cout<<"Nome: "<<alunos[i].nome;
+		cout<<"Matricula: "<<alunos[i].matricula<<endl;
+		cout<<"Sexo: "<<alunos[i].sexo<<endl;
+		cout<<"Idade: "<<alunos[i].idade<<endl;
+		cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+		cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+		cout<<"Media: "<<alunos[i].media<<endl;
+		cout<<endl<<"-------------------------------"<<endl<<endl;
+	}
+}
+
 }
 
 void menu_lista(){
@@ -248,6 +434,22 @@ switch(op_){
 	case 3:
 		reprovados();
 	break;
+	
+	case 4:
+         reprovados_5();
+    break;
+    
+    case 5:
+    	reprovados_7();
+    break;
+    
+    case 6:
+    	aprovados_7();
+    break;
+    
+    case 7:
+    	aprovados_9();
+    break;
 }
 }while(op_!=0);
 
@@ -275,9 +477,6 @@ void tds_alunos(){
 		cout<<"AV3: "<<alunos[i].notas[2]<<endl;
 		cout<<"Media: "<<alunos[i].media<<endl;
 		cout<<endl<<"-------------------------------"<<endl<<endl;
-	
-
-	
 }
 	}
 
