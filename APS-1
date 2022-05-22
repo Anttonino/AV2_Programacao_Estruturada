@@ -1,5 +1,3 @@
-// Atualizado no dia 21/05/2022 19:37
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -379,18 +377,19 @@ void reprovados_5(){
 }
 	
 void pesquisar(){
-
-	int matricula;
+	
+	int matricula, op, i;
+	
 	system ("cls");
 	
 	cout<<endl<<"***********BUSCA DO ALUNO***********"<<endl;
 	cout<<"------------------------------------------------------------"<<endl;
-	cout<<"A busca deve ser feito pela o número de matrícula do aluno."<<endl; 
+	cout<<"A busca deve ser feito pelo número de matrícula do aluno."<<endl; 
 	cout<<"------------------------------------------------------------"<<endl;
 	cout<<endl<<"Digite a Matrícula: "; cin>>matricula;
 	
-	for(int i=0;i<MAX_ALUNOS;i++){
-		if (alunos[i].matricula,matricula==0){
+	for(i=0;i<MAX_ALUNOS;i++){
+		if(matricula==alunos[i].matricula){
 			cout<<"-------------------------------"<<endl;
 			cout<<"Nome: "<<alunos[i].nome;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
@@ -403,7 +402,25 @@ void pesquisar(){
 			cout<<endl<<"-------------------------------"<<endl<<endl;
 		}
 	}
-
+	if(matricula!=alunos[i].matricula){
+		cout<<endl<<"Matrícula inválida"<<endl<<endl;
+	}
+	
+	cout<<"1 - Nova pesquisa"<<endl;
+	cout<<"0 - Sair"<<endl<<endl;
+	cout<<"Comando: ";	cin>>op;
+	getchar();
+	
+	switch(op){
+		
+		case 1:
+			pesquisar();
+		break;
+		
+		case 0:
+			menu();
+		break;
+	}
 }
 
 void menu_lista(){
