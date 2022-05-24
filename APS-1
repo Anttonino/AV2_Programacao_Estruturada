@@ -70,6 +70,12 @@ void menu(){
 			case 0:
 				return;
 			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 		}
 		
 			getchar();
@@ -80,12 +86,13 @@ void menu(){
 
 void cadastrar(){
 
+int total = 0;
+
 	system("cls");
 
 	char nome[50], sexo[10];
 	float notas[3], media;
     int matricula, idade, ativo, op;
-
 	do{
 		cout<<endl<<"***CADASTRO DO ALUNO***"<<endl;
 		cout<<endl<<"Nome: ";
@@ -107,6 +114,7 @@ void cadastrar(){
 				strcpy(alunos[i].nome, nome);
 				strcpy(alunos[i].sexo, sexo);
 				alunos[i].ativo=1;
+				total ++;
 				break;
 			}
 		}
@@ -115,15 +123,25 @@ void cadastrar(){
 		cout<<"0 - Sair"<<endl; 
 		cout<<endl<<"Comando: ";cin>>op;
 		getchar();
-		cout<<" " <<endl;
 		
 		switch(op){
 			case 0:
 				menu();
 			break;
+			
+			case 1:
+				cadastrar();
+			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 		}
-	}while(op!=0);
+	}while(op!=0 && total<MAX_ALUNOS);
 getchar();
+
 }
 
 void media(){
@@ -188,6 +206,12 @@ void aprovados(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 	}
 }
 
@@ -224,6 +248,12 @@ void aprovados_7(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 	}
 }
 
@@ -261,6 +291,12 @@ void aprovados_9(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 	}
 }
 
@@ -298,6 +334,12 @@ void reprovados(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 	}
 }
 	
@@ -335,6 +377,12 @@ void reprovados_7(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 	}
 }
 
@@ -372,13 +420,20 @@ void reprovados_5(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+		break;
 	}
 	
 }
 	
 void pesquisar(){
 	
-	int matricula, op, i;
+	int matricula, op,op1,op2, i;
+	media();
 	
 	system ("cls");
 	
@@ -386,9 +441,12 @@ void pesquisar(){
 	cout<<"------------------------------------------------------------"<<endl;
 	cout<<"A busca deve ser feito pelo número de matrícula do aluno."<<endl; 
 	cout<<"------------------------------------------------------------"<<endl;
-	cout<<endl<<"Digite a Matrícula: "; cin>>matricula;
-	
+
 	for(i=0;i<MAX_ALUNOS;i++){
+	
+	cout<<endl<<"Digite a Matrícula: "; cin>>matricula;
+	getchar();
+		
 		if(matricula==alunos[i].matricula){
 			cout<<"-------------------------------"<<endl;
 			cout<<"Nome: "<<alunos[i].nome;
@@ -400,13 +458,8 @@ void pesquisar(){
 			cout<<"AV3: "<<alunos[i].notas[2]<<endl;
 			cout<<"Média: "<<alunos[i].media<<endl;
 			cout<<endl<<"-------------------------------"<<endl<<endl;
-		}
-	}
-	if(matricula!=alunos[i].matricula){
-		cout<<endl<<"Matrícula inválida"<<endl<<endl;
-	}
-	
-	cout<<"1 - Nova pesquisa"<<endl;
+			
+	cout<<endl<<"1 - Nova pesquisa"<<endl;
 	cout<<"0 - Sair"<<endl<<endl;
 	cout<<"Comando: ";	cin>>op;
 	getchar();
@@ -420,7 +473,48 @@ void pesquisar(){
 		case 0:
 			menu();
 		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+        break;
+	}	
+		}else if(matricula!=alunos[i].matricula && alunos[i].ativo==1){
+			cout<<endl<<"Aluno não encontrado"<<endl;
+			cout<<"Gostaria de cadastra-lo?"<<endl;
+			cout<<endl<<"1 - Sim"<<endl;
+			cout<<"0 - Não"<<endl;
+			
+			cout<<endl<<"Comando: "; cin>>op1;
+			getchar();
+			switch(op1){
+				case 1:
+					cadastrar();
+				break;
+				
+				case 0:
+					cout<<"Gostaria de continuar pesquisando?"<<endl;
+					cout<<endl<<"1 - Sim"<<endl;
+			        cout<<"0 - sair"<<endl;
+			        cout<<endl<<"Comando: "; cin>>op2;
+			        getchar();
+			switch(op2){
+				case 1:
+					pesquisar();
+			    break;
+			    
+			    case 0:
+			    	menu();
+			    break;
+		}
+					
 	}
+			
+}
+	}
+
+	
 }
 
 void menu_lista(){
@@ -470,6 +564,16 @@ void menu_lista(){
 		    case 7:
 		    	aprovados_9();
 		    break;
+		    
+			case 0:
+				menu();
+			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+			break;
 		}
 	}while(op_!=0);
 
@@ -511,6 +615,12 @@ void tds_alunos(){
 		break;
 		
 		case 0:
+			menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
 			menu();
 		break;
 	}
