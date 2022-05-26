@@ -52,7 +52,7 @@ void menu(){
 		cout<<"3 - Listar Alunos"<<endl;
 		cout<<"4 - Remover Aluno"<<endl;
 		
-		cout<<"0 - Sair"<<endl<<endl;
+		cout<<"0 - Encerrar o Programa"<<endl<<endl;
 		cout<<"Comando: "; cin>>op;
 		getchar();
 		
@@ -74,7 +74,7 @@ void menu(){
 			break;
 			
 			default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 			break;
@@ -98,7 +98,7 @@ int total = 0;
 	do{
 		cout<<endl<<"***CADASTRO DO ALUNO***"<<endl;
 		cout<<endl<<"Nome: ";
-		fgets(nome,sizeof(nome),stdin);
+		fgets(nome,sizeof(nome),stdin); \\ precisamos remover essa função
 		cout<<endl<<"Matrícula: ";cin>>matricula;
 		cout<<endl<<"Idade: ";cin>>idade;
 		cout<<endl<<"Sexo: ";cin>>sexo;
@@ -123,7 +123,7 @@ int total = 0;
 		}
 		cout<<endl<<"Parabéns! Aluno cadastrado com sucesso!"<<endl;
 		cout<<endl<<"1 - Continuar"<<endl;
-		cout<<"0 - Sair"<<endl; 
+		cout<<"0 - Menu Principal"<<endl; 
 		cout<<endl<<"Comando: ";cin>>op;
 		getchar();
 		
@@ -137,7 +137,7 @@ int total = 0;
 			break;
 			
 			default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 			break;
@@ -157,7 +157,7 @@ void salvar(){
 		cout<<"não foi possível abrir o arquivo"<<endl; exit(1);
 	}else{
 	
-	fprintf (arq,"Total= %d",alunos[i].total);
+	fprintf (arq,"Total= %d\n",alunos[i].total);
 	
 	for(int i=0;i<MAX_ALUNOS;i++){
 		
@@ -185,7 +185,7 @@ void menu_cad(){
 	
 	cout<<endl<<"1 - Novo cadastro"<<endl;
 	cout<<"2 - Salvar arquivo"<<endl;
-	cout<<"0 - menu principal"<<endl;
+	cout<<"0 - Menu principal"<<endl;
 	cout<<endl<<"Comando: ";	cin>>op;
 	getchar();
 	
@@ -204,7 +204,7 @@ void menu_cad(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
         break;
@@ -276,7 +276,7 @@ void aprovados(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 			break;
@@ -318,7 +318,7 @@ void aprovados_7(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 			break;
@@ -361,7 +361,7 @@ void aprovados_9(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 			break;
@@ -404,7 +404,7 @@ void reprovados(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido! "<<endl;
 			system("pause");
 			menu();
 			break;
@@ -490,7 +490,7 @@ void reprovados_5(){
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
 		break;
@@ -524,7 +524,7 @@ for(int i=0;i<MAX_ALUNOS;i++){
 	if (coteli == true && matricula==alunos[i].matricula && alunos[i].ativo==1) {
 		
 cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -535,7 +535,7 @@ cout<<"-------------------------------"<<endl;
 cout<<endl<<"-------------------------------"<<endl<<endl;
    
    cout<<endl<<"1 - Nova pesquisa"<<endl;
-	cout<<"0 - Sair"<<endl<<endl;
+	cout<<"0 - Menu Principal"<<endl<<endl;
 	cout<<"Comando: ";	cin>>op;
 	getchar();
 	
@@ -550,7 +550,7 @@ cout<<endl<<"-------------------------------"<<endl<<endl;
 		break;
 		
 		default:
-			cout<<endl<<"Error! Comando inválido"<<endl;
+			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			menu();
         break;
@@ -573,7 +573,7 @@ cout<<"Gostaria de cadastra-lo?"<<endl;
 				case 0:
 					cout<<endl<<"Gostaria de continuar pesquisando?"<<endl;
 					cout<<endl<<"1 - Sim"<<endl;
-			        cout<<"0 - sair"<<endl;
+			        cout<<"0 - Menu Pesquisa"<<endl;
 			        cout<<endl<<"Comando: "; cin>>op2;
 			        getchar();
 			switch(op2){
