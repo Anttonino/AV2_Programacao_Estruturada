@@ -11,7 +11,7 @@ typedef struct{
 
 	char nome[50], sexo[10];
 	float notas[3], media;
-	int idade, matricula, ativo;
+	int idade, matricula, ativo, total;
 
 }aluno;
 
@@ -28,6 +28,8 @@ void aprovados_7();
 void aprovados_9();
 void reprovados_7();
 void reprovados_5();
+void salvar();
+void menu_cad();
 
 main(){
 	
@@ -56,7 +58,7 @@ void menu(){
 		
 		switch(op){
 			case 1:
-				cadastrar();
+				menu_cad();
 			break;
 				
 			case 2:
@@ -68,7 +70,7 @@ void menu(){
 			break;
 			
 			case 0:
-				return;
+				exit(0);
 			break;
 			
 			default:
@@ -114,6 +116,7 @@ int total = 0;
 				strcpy(alunos[i].nome, nome);
 				strcpy(alunos[i].sexo, sexo);
 				alunos[i].ativo=1;
+				total=alunos[i].total;
 				total ++;
 				break;
 			}
@@ -142,6 +145,71 @@ int total = 0;
 	}while(op!=0 && total<MAX_ALUNOS);
 getchar();
 
+}
+
+void salvar(){
+	char name[10]; int i;
+	
+	FILE* arq;
+	
+	cout<<"Digite o nome do arquivo: "; cin>>name; strcat(name,".txt");
+	if((arq=fopen(name,"w"))==NULL){
+		cout<<"não foi possível abrir o arquivo"<<endl; exit(1);
+	}else{
+	
+	fprintf (arq,"Total= %d",alunos[i].total);
+	
+	for(int i=0;i<MAX_ALUNOS;i++){
+		
+		fprintf (arq, "\nNome= %s",alunos[i].nome);
+		fprintf (arq, "\nMatricula= %d",alunos[i].matricula);		
+		fprintf (arq, "\nSexo= %s",alunos[i].sexo);
+		fprintf (arq, "\nIdade= %d",alunos[i].idade);
+		fprintf (arq, "\nAV1= %f",alunos[i].notas[0]);
+		fprintf (arq, "\nAV2= %f",alunos[i].notas[1]);
+		fprintf (arq, "\nAV3= %f",alunos[i].notas[2]);
+	}
+	cout<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+}
+}
+
+void menu_cad(){
+	int op;
+	
+	system("cls");
+	
+	cout<<endl<<"***********MENU DE CADASTRO***********"<<endl;
+	cout<<"------------------------------------------------------------"<<endl;
+	cout<<"Lembre-se de salvar ao fim da execução"<<endl; 
+	cout<<"------------------------------------------------------------"<<endl;
+	
+	cout<<endl<<"1 - Novo cadastro"<<endl;
+	cout<<"2 - Salvar arquivo"<<endl;
+	cout<<"0 - menu principal"<<endl;
+	cout<<endl<<"Comando: ";	cin>>op;
+	getchar();
+	
+	switch(op){
+		
+		case 1:
+			cadastrar();
+		break;
+		
+		case 2:
+			salvar();
+		break;
+		
+		case 0:
+			menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			menu();
+        break;
+	}	
+	
 }
 
 void media(){
@@ -432,7 +500,8 @@ void reprovados_5(){
 	
 void pesquisar(){
 	
-	int matricula, op,op1,op2, i;
+	int matricula, op, local, op1, op2;
+	bool coteli=false;
 	media();
 	
 	system ("cls");
@@ -442,13 +511,19 @@ void pesquisar(){
 	cout<<"A busca deve ser feito pelo número de matrícula do aluno."<<endl; 
 	cout<<"------------------------------------------------------------"<<endl;
 
-	for(i=0;i<MAX_ALUNOS;i++){
-	
-	cout<<endl<<"Digite a Matrícula: "; cin>>matricula;
-	getchar();
+cout<<endl<<"Digite a matricula: "; cin>>matricula;
+
+for(int i=0;i<MAX_ALUNOS;i++){
+	if(matricula==alunos[i].matricula){
+		local=i;
+		coteli=true;
+	}
+}
+
+for(int i=0;i<MAX_ALUNOS;i++){
+	if (coteli == true && matricula==alunos[i].matricula && alunos[i].ativo==1) {
 		
-		if(matricula==alunos[i].matricula){
-			cout<<"-------------------------------"<<endl;
+cout<<"-------------------------------"<<endl;
 			cout<<"Nome: "<<alunos[i].nome;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
@@ -457,9 +532,9 @@ void pesquisar(){
 			cout<<"AV2: "<<alunos[i].notas[1]<<endl;
 			cout<<"AV3: "<<alunos[i].notas[2]<<endl;
 			cout<<"Média: "<<alunos[i].media<<endl;
-			cout<<endl<<"-------------------------------"<<endl<<endl;
-			
-	cout<<endl<<"1 - Nova pesquisa"<<endl;
+cout<<endl<<"-------------------------------"<<endl<<endl;
+   
+   cout<<endl<<"1 - Nova pesquisa"<<endl;
 	cout<<"0 - Sair"<<endl<<endl;
 	cout<<"Comando: ";	cin>>op;
 	getchar();
@@ -480,9 +555,11 @@ void pesquisar(){
 			menu();
         break;
 	}	
-		}else if(matricula!=alunos[i].matricula && alunos[i].ativo==1){
-			cout<<endl<<"Aluno não encontrado"<<endl;
-			cout<<"Gostaria de cadastra-lo?"<<endl;
+
+	} else if (coteli==false && alunos[i].ativo==1){
+	cout<<"Aluno Não encontrado"<<endl;
+
+cout<<"Gostaria de cadastra-lo?"<<endl;
 			cout<<endl<<"1 - Sim"<<endl;
 			cout<<"0 - Não"<<endl;
 			
@@ -494,7 +571,7 @@ void pesquisar(){
 				break;
 				
 				case 0:
-					cout<<"Gostaria de continuar pesquisando?"<<endl;
+					cout<<endl<<"Gostaria de continuar pesquisando?"<<endl;
 					cout<<endl<<"1 - Sim"<<endl;
 			        cout<<"0 - sair"<<endl;
 			        cout<<endl<<"Comando: "; cin>>op2;
@@ -510,11 +587,10 @@ void pesquisar(){
 		}
 					
 	}
-			
-}
-	}
 
-	
+	}
+}
+
 }
 
 void menu_lista(){
