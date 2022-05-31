@@ -11,11 +11,12 @@ typedef struct{
 
 	char nome[50], sexo[10];
 	float notas[3], media;
-	int idade, matricula, ativo, total;
+	int idade, matricula, ativo;
 
 }aluno;
 
 aluno alunos[MAX_ALUNOS];
+int total = 0;
 
 void menu();
 void cadastrar();
@@ -87,9 +88,7 @@ void menu(){
 }
 
 void cadastrar(){
-
-int total = 0;
-
+	
 	system("cls");
 
 	char nome[50], sexo[10];
@@ -97,8 +96,7 @@ int total = 0;
     int matricula, idade, ativo, op;
 	do{
 		cout<<endl<<"***CADASTRO DO ALUNO***"<<endl;
-		cout<<endl<<"Nome: ";
-		fgets(nome,sizeof(nome),stdin); \\ precisamos remover essa função
+		cout<<endl<<"Nome: ";gets(nome); 
 		cout<<endl<<"Matrícula: ";cin>>matricula;
 		cout<<endl<<"Idade: ";cin>>idade;
 		cout<<endl<<"Sexo: ";cin>>sexo;
@@ -116,7 +114,6 @@ int total = 0;
 				strcpy(alunos[i].nome, nome);
 				strcpy(alunos[i].sexo, sexo);
 				alunos[i].ativo=1;
-				total=alunos[i].total;
 				total ++;
 				break;
 			}
@@ -157,7 +154,7 @@ void salvar(){
 		cout<<"não foi possível abrir o arquivo"<<endl; exit(1);
 	}else{
 	
-	fprintf (arq,"Total= %d\n",alunos[i].total);
+	fprintf (arq,"Total= %d\n",total);
 	
 	for(int i=0;i<MAX_ALUNOS;i++){
 		
@@ -165,11 +162,12 @@ void salvar(){
 		fprintf (arq, "\nMatricula= %d",alunos[i].matricula);		
 		fprintf (arq, "\nSexo= %s",alunos[i].sexo);
 		fprintf (arq, "\nIdade= %d",alunos[i].idade);
-		fprintf (arq, "\nAV1= %f",alunos[i].notas[0]);
-		fprintf (arq, "\nAV2= %f",alunos[i].notas[1]);
-		fprintf (arq, "\nAV3= %f",alunos[i].notas[2]);
+		fprintf (arq, "\nAV1= %.1f",alunos[i].notas[0]);
+		fprintf (arq, "\nAV2= %.1f",alunos[i].notas[1]);
+		fprintf (arq, "\nAV3= %.1f",alunos[i].notas[2]);
 	}
-	cout<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+	cout<<endl<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+	system("pause");
 }
 }
 
@@ -249,7 +247,7 @@ void aprovados(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media >= 7){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -291,7 +289,7 @@ void aprovados_7(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media >= 7 && alunos[i].media < 9){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -333,7 +331,7 @@ void aprovados_9(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media >= 9){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -377,7 +375,7 @@ void reprovados(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media < 7 && alunos[i].ativo==1){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -420,7 +418,7 @@ void reprovados_7(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media < 7 && alunos[i].media > 5){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -463,7 +461,7 @@ void reprovados_5(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media <= 5 && alunos[i].ativo==1){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -663,11 +661,12 @@ void tds_alunos(){
 	media();
 	
 	cout<<endl<<"***********LISTA DE ALUNOS CADASTRADOS***********"<<endl;
+    cout<<"Total de alunos: "<<total<<endl;
 
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].ativo==1){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
