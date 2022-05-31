@@ -1,4 +1,4 @@
-# Programa de cadastros na linguagem C++
+# Sistema de cadastros na linguagem C++
 <h3>Trabalho Acadêmico de programação estruturada do Centro Universitário Unicarioca.</h3>
 
 :construction: Projeto em construção :construction:
