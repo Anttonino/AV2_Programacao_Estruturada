@@ -30,7 +30,8 @@ void aprovados_9();
 void reprovados_7();
 void reprovados_5();
 void salvar();
-void menu_cad();
+void menu_arq();
+void carregar();
 
 main(){
 	
@@ -52,6 +53,7 @@ void menu(){
 		cout<<"2 - Pesquisar Aluno"<<endl;
 		cout<<"3 - Listar Alunos"<<endl;
 		cout<<"4 - Remover Aluno"<<endl;
+		cout<<"5 - Salvar/Carregar arquivo externo"<<endl;
 		
 		cout<<"0 - Encerrar o Programa"<<endl<<endl;
 		cout<<"Comando: "; cin>>op;
@@ -59,7 +61,7 @@ void menu(){
 		
 		switch(op){
 			case 1:
-				menu_cad();
+				cadastrar();
 			break;
 				
 			case 2:
@@ -68,6 +70,10 @@ void menu(){
 				
 			case 3:
 				menu_lista();
+			break;
+			
+			case 5:
+				menu_arq();
 			break;
 			
 			case 0:
@@ -145,18 +151,18 @@ getchar();
 }
 
 void salvar(){
-	char name[10]; int i;
+	char name[10]; 
 	
 	FILE* arq;
 	
-	cout<<"Digite o nome do arquivo: "; cin>>name; strcat(name,".txt");
-	if((arq=fopen(name,"w"))==NULL){
+	cout<<endl<<"Digite o nome para o arquivo: "; cin>>name; strcat(name,".txt");
+	if((arq=fopen(name,"w+b"))==NULL){
 		cout<<"não foi possível abrir o arquivo"<<endl; exit(1);
 	}else{
 	
 	fprintf (arq,"Total= %d\n",total);
 	
-	for(int i=0;i<MAX_ALUNOS;i++){
+	for(int i=0;i<total;i++){
 		
 		fprintf (arq, "\nNome= %s",alunos[i].nome);
 		fprintf (arq, "\nMatricula= %d",alunos[i].matricula);		
@@ -165,24 +171,62 @@ void salvar(){
 		fprintf (arq, "\nAV1= %.1f",alunos[i].notas[0]);
 		fprintf (arq, "\nAV2= %.1f",alunos[i].notas[1]);
 		fprintf (arq, "\nAV3= %.1f",alunos[i].notas[2]);
+		fprintf (arq, "\nMédia= %.1f",alunos[i].media);
 	}
-	cout<<endl<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+	cout<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
 	system("pause");
 }
 }
 
-void menu_cad(){
+void carregar(){
+	
+ FILE *arq;
+char name[10];
+   
+	cout<<endl<<"-----------------------------------------------------------------------"<<endl;
+	cout<<"O arquivo que será carregado deve estar no mesmo diretório do sistema"<<endl; 
+	cout<<"-----------------------------------------------------------------------"<<endl;
+   
+   cout<<endl<<"Nome do arquivo a ser carregado: "; cin>>name;
+   arq = fopen(name,"r+b");
+   if (arq == NULL){
+   	cout<<"não foi possível carregar o arquivo"<<endl;
+   }else{
+   	    fseek (arq,7,0);
+		fscanf (arq, "%d\n", &total);
+		
+	for(int i=0;i<total;i++){
+		fseek(arq,6,1); fscanf(arq,"%s\n",alunos[i].nome);
+		fseek(arq,11,1); fscanf(arq,"%d\n",alunos[i].matricula);
+		fseek(arq,6,1); fscanf(arq,"%s\n",alunos[i].sexo);
+		fseek(arq,7,1); fscanf(arq,"%d\n",alunos[i].idade);
+		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[0]);
+		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[1]);
+		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[2]);
+		fseek(arq,7,1); fscanf(arq,"%f\n",alunos[i].media);
+	}
+   
+}
+fclose(arq);
+    cout<<endl<<"Arquivo carregado com sucesso!"<<endl;
+    system("pause");
+    menu();
+   	
+}
+
+
+void menu_arq(){
 	int op;
 	
 	system("cls");
 	
-	cout<<endl<<"***********MENU DE CADASTRO***********"<<endl;
+	cout<<endl<<"***********Arquivo externo***********"<<endl;
 	cout<<"------------------------------------------------------------"<<endl;
 	cout<<"Lembre-se de salvar ao fim da execução"<<endl; 
 	cout<<"------------------------------------------------------------"<<endl;
 	
-	cout<<endl<<"1 - Novo cadastro"<<endl;
-	cout<<"2 - Salvar arquivo"<<endl;
+	cout<<endl<<"1 - Salvar arquivo"<<endl;
+	cout<<"2 - Carregar arquivo"<<endl;
 	cout<<"0 - Menu principal"<<endl;
 	cout<<endl<<"Comando: ";	cin>>op;
 	getchar();
@@ -190,11 +234,11 @@ void menu_cad(){
 	switch(op){
 		
 		case 1:
-			cadastrar();
+			salvar();
 		break;
 		
 		case 2:
-			salvar();
+			carregar();
 		break;
 		
 		case 0:
@@ -209,6 +253,7 @@ void menu_cad(){
 	}	
 	
 }
+
 
 void media(){
 
@@ -418,7 +463,7 @@ void reprovados_7(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media < 7 && alunos[i].media > 5){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome<<endl;
+			cout<<"Nome: "<<alunos[i].nome;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -461,7 +506,7 @@ void reprovados_5(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media <= 5 && alunos[i].ativo==1){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome<<endl;
+			cout<<"Nome: "<<alunos[i].nome;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
