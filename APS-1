@@ -32,6 +32,7 @@ void reprovados_5();
 void salvar();
 void menu_arq();
 void carregar();
+void remover();
 
 main(){
 	
@@ -93,6 +94,11 @@ void menu(){
 
 }
 
+void remover(){
+
+}
+
+
 void cadastrar(){
 	
 	system("cls");
@@ -152,12 +158,13 @@ getchar();
 
 void salvar(){
 	char name[10]; 
+	media();
 	
 	FILE* arq;
 	
 	cout<<endl<<"Digite o nome para o arquivo: "; cin>>name; strcat(name,".txt");
-	if((arq=fopen(name,"w+b"))==NULL){
-		cout<<"não foi possível abrir o arquivo"<<endl; exit(1);
+	if((arq=fopen(name,"w"))==NULL){
+		cout<<endl<<"não foi possível abrir o arquivo"<<endl; exit(1);
 	}else{
 	
 	fprintf (arq,"Total= %d\n",total);
@@ -173,7 +180,7 @@ void salvar(){
 		fprintf (arq, "\nAV3= %.1f",alunos[i].notas[2]);
 		fprintf (arq, "\nMédia= %.1f",alunos[i].media);
 	}
-	cout<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+	cout<<endl<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
 	system("pause");
 }
 }
@@ -182,28 +189,29 @@ void carregar(){
 	
  FILE *arq;
 char name[10];
+media();
    
 	cout<<endl<<"-----------------------------------------------------------------------"<<endl;
 	cout<<"O arquivo que será carregado deve estar no mesmo diretório do sistema"<<endl; 
 	cout<<"-----------------------------------------------------------------------"<<endl;
    
    cout<<endl<<"Nome do arquivo a ser carregado: "; cin>>name;
-   arq = fopen(name,"r+b");
+   arq = fopen(name,"r");
    if (arq == NULL){
-   	cout<<"não foi possível carregar o arquivo"<<endl;
+   	cout<<endl<<"não foi possível carregar o arquivo"<<endl;
    }else{
    	    fseek (arq,7,0);
 		fscanf (arq, "%d\n", &total);
 		
 	for(int i=0;i<total;i++){
 		fseek(arq,6,1); fscanf(arq,"%s\n",alunos[i].nome);
-		fseek(arq,11,1); fscanf(arq,"%d\n",alunos[i].matricula);
+		fseek(arq,11,1); fscanf(arq,"%d\n",&alunos[i].matricula);
 		fseek(arq,6,1); fscanf(arq,"%s\n",alunos[i].sexo);
-		fseek(arq,7,1); fscanf(arq,"%d\n",alunos[i].idade);
-		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[0]);
-		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[1]);
-		fseek(arq,5,1); fscanf(arq,"%f\n",alunos[i].notas[2]);
-		fseek(arq,7,1); fscanf(arq,"%f\n",alunos[i].media);
+		fseek(arq,7,1); fscanf(arq,"%d\n",&alunos[i].idade);
+		fseek(arq,5,1); fscanf(arq,"%f\n",&alunos[i].notas[0]);
+		fseek(arq,5,1); fscanf(arq,"%f\n",&alunos[i].notas[1]);
+		fseek(arq,5,1); fscanf(arq,"%f\n",&alunos[i].notas[2]);
+		fseek(arq,7,1); fscanf(arq,"%f\n",&alunos[i].media);
 	}
    
 }
@@ -279,6 +287,10 @@ void media(){
 		else if (alunos[i].notas[0]==0 && alunos[i].notas[1]==0 && alunos[i].notas[2]==0)
 		{
 			alunos[i].media = 0;
+		}
+		else if(alunos[i].notas[0] == alunos[i].notas[1] && alunos[i].notas[0] == alunos[i].notas[2])
+		{
+			alunos[i].media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
 		}
 	
 	}
@@ -463,7 +475,7 @@ void reprovados_7(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media < 7 && alunos[i].media > 5){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -506,7 +518,7 @@ void reprovados_5(){
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].media <= 5 && alunos[i].ativo==1){
 			cout<<"-------------------------------"<<endl;
-			cout<<"Nome: "<<alunos[i].nome;
+			cout<<"Nome: "<<alunos[i].nome<<endl;
 			cout<<"Matrícula: "<<alunos[i].matricula<<endl;
 			cout<<"Sexo: "<<alunos[i].sexo<<endl;
 			cout<<"Idade: "<<alunos[i].idade<<endl;
@@ -578,8 +590,8 @@ cout<<"-------------------------------"<<endl;
 cout<<endl<<"-------------------------------"<<endl<<endl;
    
    cout<<endl<<"1 - Nova pesquisa"<<endl;
-	cout<<"0 - Menu Principal"<<endl<<endl;
-	cout<<"Comando: ";	cin>>op;
+	cout<<"0 - Menu Principal"<<endl;
+	cout<<endl<<"Comando: ";	cin>>op;
 	getchar();
 	
 	switch(op){
@@ -600,9 +612,9 @@ cout<<endl<<"-------------------------------"<<endl<<endl;
 	}	
 
 	} else if (coteli==false && alunos[i].ativo==1){
-	cout<<"Aluno Não encontrado"<<endl;
+	cout<<endl<<"Aluno Não encontrado"<<endl;
 
-cout<<"Gostaria de cadastra-lo?"<<endl;
+cout<<endl<<"Gostaria de cadastra-lo?"<<endl;
 			cout<<endl<<"1 - Sim"<<endl;
 			cout<<"0 - Não"<<endl;
 			
@@ -615,8 +627,8 @@ cout<<"Gostaria de cadastra-lo?"<<endl;
 				
 				case 0:
 					cout<<endl<<"Gostaria de continuar pesquisando?"<<endl;
-					cout<<endl<<"1 - Sim"<<endl;
-			        cout<<"0 - Menu Pesquisa"<<endl;
+					cout<<endl<<"1 - Nova pesquisa"<<endl;
+			        cout<<"0 - Sair"<<endl;
 			        cout<<endl<<"Comando: "; cin>>op2;
 			        getchar();
 			switch(op2){
@@ -706,7 +718,9 @@ void tds_alunos(){
 	media();
 	
 	cout<<endl<<"***********LISTA DE ALUNOS CADASTRADOS***********"<<endl;
+		cout<<"-------------------------------"<<endl;
     cout<<"Total de alunos: "<<total<<endl;
+    	cout<<"-------------------------------"<<endl;
 
 	for(int i=0;i<MAX_ALUNOS;i++){
 		if(alunos[i].ativo==1){
@@ -723,11 +737,11 @@ void tds_alunos(){
 		}
 	}
 	
-	cout<<"1 - Menu de listagem"<<endl;
+	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
 	
 	
-	cout<<"Comando: "; cin>>op; 
+	cout<<endl<<"Comando: "; cin>>op; 
 	
 	switch(op){
 		case 1:
