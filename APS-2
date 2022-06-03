@@ -154,10 +154,10 @@ int cpf, op, local, op1, op2, op_;
 	
 	cout<<endl<<"********************PESQUISAR FUNCIONÁRIO**************************"<<endl;
 	cout<<"------------------------------------------------------------"<<endl;
-	cout<<"A busca deve ser feito pelo número de matrícula do aluno."<<endl; 
+	cout<<"A busca deve ser feito pelo número do CPF do Funcionario."<<endl; 
 	cout<<"------------------------------------------------------------"<<endl;
 
-cout<<endl<<"Digite o cpf: "; cin>>cpf;
+cout<<endl<<"Digite o CPF: "; cin>>cpf;
 
 if(total==0){
   cout<<endl<<"Sistema vazio"<<endl;
