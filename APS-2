@@ -10,7 +10,7 @@ using namespace std;
 typedef struct{
 	
 	char nome[50], sexo[10];
-	int idade; float hrs_t, valor_hrs, salario, ativo;
+	int idade, cpf; float hrs_t, valor_hrs, salario, salario_l, ativo;
 
 }funcionarios;
 
@@ -20,6 +20,9 @@ int total=0; char name_arq[10];
 
 void main_menu();
 void cadastros();
+void buscar();
+void bruto();
+void liquido();
 
 main(){
 	
@@ -52,11 +55,11 @@ void main_menu(){
 			case 1:
 				cadastros();
 			break;
-			/*	
+				
 			case 2:
 				buscar();
 			break;
-			
+			/*
 			case 3:
 				listagem_menu();
 			break;
@@ -68,13 +71,13 @@ void main_menu(){
 			case 0:
 				exit(0);
 			break;
-			
+			*/
 			default:
 			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
 			main_menu();
 			break;
-		*/	
+			
 		}
 		
 			getchar();
@@ -89,12 +92,13 @@ void cadastros(){
     
 	//Variáveis do registro
 	char nome[50], sexo[10];
-	int idade, op; float hrs_t, valor_hrs;
+	int idade, cpf, op; float hrs_t, valor_hrs;
 	
 	do{
 		cout<<endl<<"CADASTRO DE FUNCIONÁRIOS"<<endl;
 		cout<<"------------------"<<endl;
-		cout<<endl<<"Digite o nome: ";gets(nome); 
+		cout<<endl<<"Digite o nome: ";gets(nome);
+		 cout<<endl<<"Digite o CPF: ";cin>>cpf;
 		cout<<endl<<"Digite a idade: ";cin>>idade;
 		cout<<endl<<"digite o sexo: ";cin>>sexo;
 		cout<<endl<<"Digite o número de horas trabalhadas: ";cin>> hrs_t;
@@ -104,6 +108,7 @@ void cadastros(){
 			if(func[i].ativo==0){
 				func[i].hrs_t =  hrs_t;
 				func[i].valor_hrs = valor_hrs;
+				func[i].cpf = cpf;
 				strcpy(func[i].nome, nome);
 				strcpy(func[i].sexo, sexo);
 				func[i].ativo=1;
@@ -125,7 +130,7 @@ void cadastros(){
 			case 1:
 				cadastros();
 			break;
-			
+			 
 			default:
 			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
@@ -137,3 +142,146 @@ void cadastros(){
 getchar();
 
 }
+
+void buscar(){
+
+int cpf, op, local, op1, op2, op_;
+	bool coteli=false;
+	bruto();
+	liquido();
+	
+	system ("cls");
+	
+	cout<<endl<<"********************PESQUISAR FUNCIONÁRIO**************************"<<endl;
+	cout<<"------------------------------------------------------------"<<endl;
+	cout<<"A busca deve ser feito pelo número de matrícula do aluno."<<endl; 
+	cout<<"------------------------------------------------------------"<<endl;
+
+cout<<endl<<"Digite o cpf: "; cin>>cpf;
+
+if(total==0){
+  cout<<endl<<"Sistema vazio"<<endl;
+  
+  cout<<endl<<"Gostaria de cadastrar um novo funcionário?"<<endl;
+  cout<<endl<<"1 - Cadastrar novo funcionário"<<endl;
+  cout<<"0 - Menu Principal"<<endl;
+  
+  cout<<endl<<"Comando: "; cin>>op_;
+  getchar();
+  
+  switch(op_){
+  	case 1:
+  		cadastros();
+  	break;
+  	
+  	case 0:
+  		main_menu();
+  	break;
+  	
+}
+  
+  
+}else{
+
+
+for(int i=0;i<MAX;i++){
+	if(cpf==func[i].cpf){
+		local=i;
+		coteli=true;
+	}
+}
+
+for(int i=0;i<MAX;i++){
+	if (coteli == true && cpf==func[i].cpf) {
+		
+cout<<endl<<"-------------------------------"<<endl;
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+cout<<endl<<"-------------------------------"<<endl;
+   
+   cout<<"1 - Nova pesquisa"<<endl;
+	cout<<"0 - Menu Principal"<<endl;
+	cout<<endl<<"Comando: ";	cin>>op;
+	getchar();
+	
+	switch(op){
+		
+		case 1:
+			buscar();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido!"<<endl;
+			system("pause");
+			main_menu();
+        break;
+}	
+
+} else if (coteli==false){
+	cout<<endl<<"Funcionário não encontrado"<<endl;
+
+cout<<endl<<"Gostaria de cadastra-lo?"<<endl;
+			cout<<endl<<"1 - Sim"<<endl;
+			cout<<"0 - Não"<<endl;
+			
+			cout<<endl<<"Comando: "; cin>>op1;
+			getchar();
+			switch(op1){
+				case 1:
+					cadastros();
+				break;
+				
+				case 0:
+					cout<<endl<<"Gostaria de continuar pesquisando?"<<endl;
+					cout<<endl<<"1 - Nova pesquisa"<<endl;
+			        cout<<"0 - Retornar ao menu principal"<<endl;
+			        cout<<endl<<"Comando: "; cin>>op2;
+			        getchar();
+			switch(op2){
+				case 1:
+					buscar();
+			    break;
+			    
+			    case 0:
+			    	main_menu();
+			    break;
+}
+					
+}
+
+}
+}
+}
+}
+
+void bruto(){
+	
+	for(int i=0;i<total;i++){
+		if(func[i].cpf != 0){
+			func[i].salario = (func[i].hrs_t * func[i].valor_hrs)*30;
+		}
+	}
+}
+
+void liquido(){
+	for(int i=0;i<total;i++){
+		if(func[i].salario<=1751,81 && func[i].cpf!=0){
+		func[i].salario_l =	(func[i].salario * 8)/100;
+   }else if(func[i].salario<=2919,72 && func[i].salario>1751,81 &&func[i].cpf!=0){
+   	        func[i].salario_l = (func[i].salario * 9)/100;
+   }
+ }
+}
+
+
+
+
