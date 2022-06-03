@@ -1,1 +1,139 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+#include <locale.h>
+#define MAX 50
 
+using namespace std;
+
+typedef struct{
+	
+	char nome[50], sexo[10];
+	int idade; float hrs_t, valor_hrs, salario, ativo;
+
+}funcionarios;
+
+funcionarios func[MAX];
+
+int total=0; char name_arq[10];
+
+void main_menu();
+void cadastros();
+
+main(){
+	
+	setlocale(LC_ALL, "Portuguese");//permitir caracteres usados na língua portuguesa
+	
+	main_menu();
+
+}
+
+void main_menu(){
+	int op;//variável de operação
+	
+	do{
+		system("cls");
+		
+		cout<<"Sistema de cadastro de funcionários"<<endl;
+	
+	cout<<"-----------------------------"<<endl;
+		
+		cout<<endl<<"1 - Cadastrar novo funcionário"<<endl;
+		cout<<"2 - Buscar funcionário"<<endl;
+		cout<<"3 - Listagem de funcionários"<<endl;
+		cout<<"4 - Salvar/Carregar registros"<<endl;
+		
+		cout<<"0 - Encerrar o Programa"<<endl<<endl;
+		cout<<"Comando: "; cin>>op;
+		getchar();
+		
+		switch(op){
+			case 1:
+				cadastros();
+			break;
+			/*	
+			case 2:
+				buscar();
+			break;
+			
+			case 3:
+				listagem_menu();
+			break;
+		
+			case 4:
+				menu_arq();
+			break;
+			
+			case 0:
+				exit(0);
+			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido!"<<endl;
+			system("pause");
+			main_menu();
+			break;
+		*/	
+		}
+		
+			getchar();
+		
+	}while(op!=0);
+
+}
+
+void cadastros(){
+
+		system("cls");
+    
+	//Variáveis do registro
+	char nome[50], sexo[10];
+	int idade, op; float hrs_t, valor_hrs;
+	
+	do{
+		cout<<endl<<"CADASTRO DE FUNCIONÁRIOS"<<endl;
+		cout<<"------------------"<<endl;
+		cout<<endl<<"Digite o nome: ";gets(nome); 
+		cout<<endl<<"Digite a idade: ";cin>>idade;
+		cout<<endl<<"digite o sexo: ";cin>>sexo;
+		cout<<endl<<"Digite o número de horas trabalhadas: ";cin>> hrs_t;
+		cout<<endl<<"Digite o valor do salário por horas trabalhadas: ";cin>> valor_hrs;
+		
+		for(int i=0;i<MAX; i++){//Salvando os dados no registro
+			if(func[i].ativo==0){
+				func[i].hrs_t =  hrs_t;
+				func[i].valor_hrs = valor_hrs;
+				strcpy(func[i].nome, nome);
+				strcpy(func[i].sexo, sexo);
+				func[i].ativo=1;
+				total ++;
+				break;
+			}
+		}
+		cout<<endl<<"Parabéns! Funcionário cadastrado com sucesso!"<<endl;
+		cout<<endl<<"1 - Novo cadastro"<<endl;
+		cout<<"0 - Menu Principal"<<endl; 
+		cout<<endl<<"Comando: ";cin>>op;
+		getchar();
+		
+		switch(op){
+			case 0:
+				main_menu();
+			break;
+			
+			case 1:
+				cadastros();
+			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido!"<<endl;
+			system("pause");
+			main_menu();
+			break;
+		}
+	}while(op!=0 && total<MAX);
+	
+getchar();
+
+}
