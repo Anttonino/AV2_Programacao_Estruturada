@@ -1,3 +1,13 @@
+/*
+Atividade Supervisoda da APS2 - Unicarioca [955 - PROGRAMAÇÃO ESTRUTURADA 2022/1]
+Exercicio - Sistema de Cadastro de Aluno
+Professor: Andre Cotelli Do Espirito Santo
+
+
+*/
+
+// Declaração de Biblioteca utilizadas para a compilação do programa.
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -7,20 +17,26 @@
 
 using namespace std;
 
-typedef struct{ //Estrutura do registro
+//Estrutura de Registros de dados e Tabela Geral.
+
+typedef struct{ 
 
 	char nome[50], sexo[10];
 	float notas[3], media;
 	int idade, matricula, ativo;
 
-}registro; //nome do registro
+}registro; // Nome do registro e abaixo tem o limite do registro contido na tabela esta informação do limite está no campo da biblioteca.
 
-registro alunos[MAX];//limite do registro
+registro alunos[MAX];
 
+//  Declaração de váriaveis Globais.
 
-int total = 0; char arq_name[15];//variáveis globais
+int total = 0; char arq_name[15];
 
-//funções
+/* 
+
+Declaração de Funções e abaixo segue as explicações de cada opção principal. 
+
 void main_menu();//menu principal
 void cadastros();//função cadastrar
 void buscar();//Pesquisa de alunos pela matrícula
@@ -38,18 +54,37 @@ void save_arq();//salvar arquivos externos
 void upload_arq();//carregar arquivo externo;
 
 
-main(){ //pregrama principal
+*/
+
+void main_menu();
+void cadastros();
+void buscar();
+void listagem_menu();
+void todos_alunos();
+void media();
+void lista_apr();
+void lista_rep();
+void apr_7();
+void apr_9();
+void rep_7();
+void rep_5();
+void menu_arq();
+void save_arq();
+void upload_arq();
+
+
+main(){ //Parte Principal e execução do programa e adicionamos uma modificação para caracteres usados na língua portuguesa
 	
-	setlocale(LC_ALL, "Portuguese");//permitir caracteres usados na língua portuguesa
+	setlocale(LC_ALL, "Portuguese");
 		
 	main_menu();
 		
 	return 0;
 }
 
-void main_menu(){//Estrutura do menu
+void main_menu(){  // Estrutura de Menu Principal (Aonde possui todos os Menu do Sistema. A variavel "op" é usada para chamada dos Menus.
 
-int op;//variável de operação
+int op;
 	
 	do{
 		system("cls");
@@ -101,26 +136,30 @@ int op;//variável de operação
 
 }
 
-void cadastros(){//Estrutura do cadastro
+void cadastros(){  // Estrutura de Menu Cadastro - Aonde possui as opções para efetuação de cadastro. As variavies da função e na estrutura de repetição permite salvar os dados.
 	
 	system("cls");
-    //Variáveis do registro
+
+// Declaração Variaives Locais da função cadastro.
+
 	char nome[50], sexo[10];
 	float notas[3], media;
     int matricula, idade, ativo, op;
-	
+
+// Estrutura do cadastro - Solicita os dados e armazena nas váriavies Locais. Na opção do "for" executa a repetição de dados até concluir o MAX da função.
+
 	do{
 		cout<<endl<<"CADASTRO DO ALUNO"<<endl;
 		cout<<"------------------"<<endl;
 		cout<<endl<<"Digite o nome: ";gets(nome); 
 		cout<<endl<<"Digite a matrícula: ";cin>>matricula;
 		cout<<endl<<"Digite a idade: ";cin>>idade;
-		cout<<endl<<"digite o sexo: ";cin>>sexo;
-		cout<<endl<<"Digite a note de AV1: ";cin>>notas[0];
-		cout<<endl<<"Digite a note de AV2: ";cin>>notas[1];
-		cout<<endl<<"Digite a note de AV3: ";cin>>notas[2];
+		cout<<endl<<"Digite o sexo: ";cin>>sexo;
+		cout<<endl<<"Digite a nota de AV1: ";cin>>notas[0];
+		cout<<endl<<"Digite a nota de AV2: ";cin>>notas[1];
+		cout<<endl<<"Digite a nota de AV3: ";cin>>notas[2];
 		
-		for(int i=0;i<MAX; i++){//Salvando os dados no registro
+		for(int i=0;i<MAX; i++){
 			if(alunos[i].ativo==0){
 				alunos[i].notas[0] = notas[0];
 				alunos[i].notas[1] = notas[1];
@@ -139,7 +178,9 @@ void cadastros(){//Estrutura do cadastro
 		cout<<"0 - Menu Principal"<<endl; 
 		cout<<endl<<"Comando: ";cin>>op;
 		getchar();
-		
+
+//	Estrutura de Menu dentro da Opção Cadastro.
+
 		switch(op){
 			case 0:
 				main_menu();
@@ -160,7 +201,7 @@ getchar();
 
 }
 
-void menu_arq(){//sub menu de arquivos
+void menu_arq(){   //Estrutura de Menu de Arquivos - Aonde possui as opções para carregar e salvar arquivos externos.
 	int op;
 	
 	system("cls");
@@ -175,6 +216,8 @@ void menu_arq(){//sub menu de arquivos
 	cout<<"0 - Menu principal"<<endl;
 	cout<<endl<<"Comando: ";	cin>>op;
 	getchar();
+	
+	//Estrutura de Menu dentro da Opção Arquivo.
 	
 	switch(op){
 		
@@ -200,11 +243,15 @@ void menu_arq(){//sub menu de arquivos
 
 }
 
-void save_arq(){//Estrutura para salvar arquivos externos
+void save_arq(){  //Estrutura de Menu de Arquivos da Opção Salvar Arquivo Externo - Permite Salvar o arquivo para ser aberto em outras aplicações.
+
+// Declaração de Variaives Locais da função Salvar Arquivos
 
 	media();
 	
 	FILE* arq;
+
+// Operação da  função Salvar Arquivos - Aonde precisa ser digitado a extensão para o arquivo ser salvo.
 	
 	cout<<endl<<"Digite um nome para o arquivo: "; cin>>arq_name; strcat(arq_name,".txt");
 	if((arq=fopen(arq_name,"w"))==NULL){
@@ -212,6 +259,8 @@ void save_arq(){//Estrutura para salvar arquivos externos
 	}else{
 	
 	fprintf (arq,"Total= %d\n",total);
+	
+	// Estrutura de Salvar Arquivo - Permite salvar os dados do sistema de forma externa. Na opção do "for" executa o armazenamento dos dados salvo no sistema para ser usado de forma externa.
 	
 	for(int i=0;i<total;i++){
 		
@@ -232,9 +281,13 @@ void save_arq(){//Estrutura para salvar arquivos externos
 }
 }
 
-void upload_arq(){//Estrutura para carregar arquivos externos
+void upload_arq(){  // Estrutura de Menu de Arquivos da Opção Carregar Arquivo Externo - Permite carregar o arquivo externo.
+
+// Declaração de Variaives Locais da função Carregar Arquivos
 	
 FILE *arq;
+
+// Operação da  função carregar  Arquivos - Aonde precisa ser digitado a extensão para o arquivo ser carregado.
    
 	cout<<endl<<"-----------------------------------------------------------------------"<<endl;
 	cout<<"O arquivo que será carregado deve estar no mesmo diretório do sistema"<<endl; 
@@ -249,6 +302,8 @@ FILE *arq;
    }else{
    	    fseek (arq,7,0);
 		fscanf (arq, "%d\n", &total);
+	
+	// Estrutura de Carregar Arquivo - Permite carregar os dados do sistema de forma externa. Na opção do "for" executa o carregamento dos dados externos no sistema.
 		
 	for(int i=0;i<total;i++){
 		fseek(arq,6,1); fscanf(arq,"%s\n",alunos[i].nome);
@@ -272,11 +327,13 @@ fclose(arq);
 	
 }
 
-void buscar(){//Estrutura para buscar registros
+void buscar(){  //Estrutura de Menu Buscar - Aonde possui as opções para efetuação de cadastro. As variavies da função e na estrutura de repetição permite salvar os dados.
+
+// Declaração de Variaives Locais da função Buscar.
 
 	int matricula, op, local, op1, op2, op_;
 	bool coteli=false;
-	//media();
+	media();
 	
 	system ("cls");
 	
@@ -295,7 +352,10 @@ if(total==0){
   cout<<"0 - Menu Principal"<<endl;
   
   cout<<endl<<"Comando: "; cin>>op_;
-  switch(op_){
+  
+  // Estrutura de subMenu dentro da Opção Buscar.
+  
+  switch(op_){ 
   	case 1:
   		cadastros();
   	break;
@@ -305,6 +365,14 @@ if(total==0){
   	break;
   	
 }
+    
+  /*
+  Estrutura do Buscar  -  Realiza a busca de dados a parti de informações digitada pelo usuário.
+  No Laço "FOR1", ele realiza a busca através da matricula e determina se está ativo ou não a matricula.
+  No Laço "FOR2", ele realiza a busca a parti de uma matricula ativa e exibe os dados na tela. No final da exibição apresenta uma opção de pesquisa.
+  Para matriculas não localizada criamos a opção de cadastrar diretamente.
+  E retornar para o Menu Principal da opção Buscar.
+  */ 
   
   
 }else{
@@ -335,6 +403,8 @@ cout<<endl<<"-------------------------------"<<endl;
 	cout<<endl<<"Comando: ";	cin>>op;
 	getchar();
 	
+	// Estrutura de SubMenu dentro da Opção Buscar.
+	
 	switch(op){
 		
 		case 1:
@@ -355,7 +425,7 @@ cout<<endl<<"-------------------------------"<<endl;
 } else if (coteli==false){
 	cout<<endl<<"Aluno Não encontrado"<<endl;
 
-cout<<endl<<"Gostaria de cadastra-lo?"<<endl;
+	cout<<endl<<"Gostaria de cadastra-lo?"<<endl;
 			cout<<endl<<"1 - Sim"<<endl;
 			cout<<"0 - Não"<<endl;
 			
@@ -389,9 +459,22 @@ cout<<endl<<"Gostaria de cadastra-lo?"<<endl;
 }
 }
 
-void media(){ //Estrutura lógica do sistema de média da Unicarioca
+void media(){  //Estrutura de Menu Media - A lógica utilizada é do sistema de média da Unicarioca. 
+
+// Declaração de Variaives Locais da função Média.
 
 int op, ZERO;
+
+/* 
+Estrututa de Media - O FOR realiza a operação de dados das notas do alunos com base no sistema de notas da Unicarioca.
+
+Para o calculo de notas deve ser considerado as variaveis abaixos.
+
+cout<<"AV1: "<<alunos[i].notas[0]<<endl;
+cout<<"AV2: "<<alunos[i].notas[1]<<endl;
+cout<<"AV3: "<<alunos[i].notas[2]<<endl;
+
+*/
 
 	for(int i=0;i<MAX;i++){
 		
@@ -418,11 +501,21 @@ int op, ZERO;
 		{
 			alunos[i].media = (alunos[i].notas[0]+alunos[i].notas[1])/2;
 		}
+		else if(alunos[i].notas[0] == alunos[i].notas[1] && alunos[i].notas[1] == alunos[i].notas[2])
+		{
+			alunos[i].media = (alunos[i].notas[1]+alunos[i].notas[2])/2;
+		}
+		else if(alunos[i].notas[1] == alunos[i].notas[2] && alunos[i].notas[1] == alunos[i].notas[0])
+		{
+			alunos[i].media = (alunos[i].notas[0]+alunos[i].notas[2])/2;
+		}
 	
 	}
 }
 
-void listagem_menu(){ //Menu de listagem
+void listagem_menu(){ //Estrutura de Menu Listagem - Nessa estrutura permite listar as opções e situações do alunos, mediante as notas de provas.
+
+//Declaração de Variaives Locais da função listagem
 	
 	int op;
 	
@@ -438,9 +531,12 @@ void listagem_menu(){ //Menu de listagem
 		cout<<"6 - Alunos aprovados com média superior ou igual a 7"<<endl;
 		cout<<"7 - Alunos aprovados com média superior ou igual a 9"<<endl;
 	
-		cout<<"0 - Sair"<<endl<<endl;
+		cout<<"0 - Menu Principal"<<endl<<endl;
 		cout<<"Comando: "; cin>>op;
 		getchar();
+		
+//Estrutura de exibição de dados dentro da Opção Listagem. Apresenta os dados a parti da opoção escolhida anteriormente.
+
 		switch(op){
 			
 			case 1:
@@ -485,7 +581,9 @@ void listagem_menu(){ //Menu de listagem
 
 }
 
-void todos_alunos(){ //Estrutura de exibição de todos os alunos
+void todos_alunos(){ //Estrutura de exibição de todos os alunos. Nessa estrutura permite exibir todos os dados. Desde que esteja cadastrado no sistema.
+
+//Declaração de Variaives Locais da função listagem
 
 int op;
 	
@@ -514,9 +612,9 @@ int op;
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -535,7 +633,7 @@ int op;
 	}
 }
 
-void lista_apr(){ //Estrutura de exibição dos alunos aprovados
+void lista_apr(){ //Estrutura de exibição dos alunos aprovados. Nessa estrutura permite exibir somente os alunos aprovados. Desde que esteja cadastrado no sistema.
 
 int op;
 	
@@ -561,9 +659,9 @@ int op;
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+	//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -582,7 +680,7 @@ int op;
 	}
 }
 
-void lista_rep(){  //Estrutura de exibição dos alunos reprovados
+void lista_rep(){ //Estrutura de exibição dos alunos reprovados. Nessa estrutura permite exibir somente os alunos reprovados. Desde que esteja cadastrado no sistema.
 	
 	int op;
 	
@@ -608,9 +706,9 @@ void lista_rep(){  //Estrutura de exibição dos alunos reprovados
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+	//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -630,7 +728,7 @@ void lista_rep(){  //Estrutura de exibição dos alunos reprovados
 	
 }
 
-void apr_7(){  //Estrutura de exibição dos alunos aprovados com média igual ou superior a 7
+void apr_7(){ //Estrutura de exibição dos alunos aprovados com média igual ou superior a 7. Nessa estrutura permite exibir somente os alunos aprovados. Desde que esteja cadastrado no sistema.
 		
 	int op;
 	
@@ -656,9 +754,9 @@ void apr_7(){  //Estrutura de exibição dos alunos aprovados com média igual o
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+	//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -678,7 +776,7 @@ void apr_7(){  //Estrutura de exibição dos alunos aprovados com média igual o
 	
 }
 
-void apr_9(){ //Estrutura de exibição dos alunos aprovados com média igual ou superior a 9
+void apr_9(){ //Estrutura de exibição dos alunos aprovados com média igual ou superior a 9. Nessa estrutura permite exibir somente os alunos aprovados. Desde que esteja cadastrado no sistema.
 		
 	int op;
 	
@@ -704,9 +802,9 @@ void apr_9(){ //Estrutura de exibição dos alunos aprovados com média igual ou
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+
+//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -727,7 +825,7 @@ void apr_9(){ //Estrutura de exibição dos alunos aprovados com média igual ou
 
 }
 
-void rep_7(){ //Estrutura de exibição dos alunos reprovados com média inferior a 7
+void rep_7(){ //Estrutura de exibição dos alunos reprovados com média inferior a 7. Nessa estrutura permite exibir somente os alunos reprovados. Desde que esteja cadastrado no sistema.
 	
 		int op;
 	
@@ -753,9 +851,9 @@ void rep_7(){ //Estrutura de exibição dos alunos reprovados com média inferio
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+	//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -775,7 +873,7 @@ void rep_7(){ //Estrutura de exibição dos alunos reprovados com média inferio
 	
 }
 
-void rep_5(){//Estrutura de exibição dos alunos reprovados com média inferior a 5
+void rep_5(){ //Estrutura de exibição dos alunos reprovados com média inferior a 5. Nessa estrutura permite exibir somente os alunos reprovados. Desde que esteja cadastrado no sistema.
 		
 		int op;
 	
@@ -801,9 +899,9 @@ void rep_5(){//Estrutura de exibição dos alunos reprovados com média inferior
 	
 	cout<<endl<<"1 - Menu de listagem"<<endl;
 	cout<<"0 - Menu principal"<<endl;
-	
-	
 	cout<<endl<<"Comando: "; cin>>op; 
+	
+	//Estrutura de SubMenu dentro da Opção Listagem
 	
 	switch(op){
 		case 1:
@@ -822,3 +920,5 @@ void rep_5(){//Estrutura de exibição dos alunos reprovados com média inferior
 	}
 	
 }
+
+
