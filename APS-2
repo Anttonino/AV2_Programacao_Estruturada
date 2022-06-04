@@ -103,7 +103,8 @@ void cadastros(){
     
 	//Variáveis do registro
 	char nome[50], sexo[10];
-	int idade, cpf, op; float hrs_t, valor_hrs;
+	int idade, op; float hrs_t, valor_hrs,salario;
+	long long cpf;
 	
 	do{
 		cout<<endl<<"CADASTRO DE FUNCIONÁRIOS"<<endl;
@@ -119,6 +120,7 @@ void cadastros(){
 			if(func[i].ativo==0){
 				func[i].hrs_t =  hrs_t;
 				func[i].valor_hrs = valor_hrs;
+				func[i].salario = salario;
 				func[i].cpf = cpf;
 				strcpy(func[i].nome, nome);
 				strcpy(func[i].sexo, sexo);
