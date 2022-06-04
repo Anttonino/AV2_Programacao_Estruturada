@@ -16,13 +16,24 @@ typedef struct{
 
 funcionarios func[MAX];
 
-int total=0; char name_arq[10];
+int total=0; char arq_name[10];
 
 void main_menu();
 void cadastros();
 void buscar();
 void bruto();
 void liquido();
+void menu_arq();
+void upload_arq();
+void save_arq();
+void menu_listagem();
+void todos();
+void salario_inferior500();
+void salario_inferior1000();
+void salario_maior4000();
+void salario_maior5000();
+void salario_maior7000();
+void salario_maior10000();
 
 main(){
 	
@@ -59,11 +70,11 @@ void main_menu(){
 			case 2:
 				buscar();
 			break;
-			/*
+			
 			case 3:
-				listagem_menu();
+				menu_listagem();
 			break;
-		
+			
 			case 4:
 				menu_arq();
 			break;
@@ -71,7 +82,7 @@ void main_menu(){
 			case 0:
 				exit(0);
 			break;
-			*/
+			
 			default:
 			cout<<endl<<"Error! Comando inválido!"<<endl;
 			system("pause");
@@ -273,15 +284,537 @@ void bruto(){
 }
 
 void liquido(){
+	
+	float liquido;
+	
 	for(int i=0;i<total;i++){
 		if(func[i].salario<=1751,81 && func[i].cpf!=0){
-		func[i].salario_l =	(func[i].salario * 8)/100;
-   }else if(func[i].salario<=2919,72 && func[i].salario>1751,81 &&func[i].cpf!=0){
-   	        func[i].salario_l = (func[i].salario * 9)/100;
+		
+		liquido =(func[i].salario * 8)/100;
+		func[i].salario_l = func[i].salario - liquido; 
+		
+   }else if(func[i].salario<=2919,72 && func[i].salario>1751,81){
+   	        
+			  liquido = (func[i].salario * 9)/100;
+			  func[i].salario_l = func[i].salario - liquido; 
+   
+   }else if(func[i].salario<=5839,45 && func[i].salario>2919,72 &&func[i].cpf!=0){
+   	 
+		liquido = (func[i].salario * 11)/100;
+		func[i].salario_l = func[i].salario - liquido; 
+   
+   }else if(func[i].salario>5839,45){
+   	
+	   liquido = (func[i].salario * 13)/100;
+	   func[i].salario_l = func[i].salario - liquido; 
+   
    }
  }
 }
 
+void menu_arq(){
+	int op;
+	
+	system("cls");
+	
+	cout<<endl<<"SALVAR/CARREGAR UM ARQUIVO EXTERNO"<<endl;
+	cout<<"---------------------------------------"<<endl;
+	cout<<"Lembre-se de salvar ao fim da execução"<<endl; 
+	cout<<"---------------------------------------"<<endl;
+	
+	cout<<endl<<"1 - Salvar arquivo"<<endl;
+	cout<<"2 - Carregar arquivo"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: ";	cin>>op;
+	getchar();
+	
+	switch(op){
+		
+		case 1:
+			save_arq();
+		break;
+		
+		case 2:
+			upload_arq();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido!"<<endl;
+			system("pause");
+			main_menu();
+        break;
+	}	
+}
 
+void save_arq(){
 
+	 bruto();
+     liquido();
+	FILE* arq;
 
+	cout<<endl<<"Digite um nome para o arquivo: "; cin>>arq_name; strcat(arq_name,".txt");
+	if((arq=fopen(arq_name,"w"))==NULL){
+		cout<<endl<<"não foi possível abrir o arquivo"<<endl;
+	}else{
+	
+	fprintf (arq,"Total= %d\n",total);
+		
+	for(int i=0;i<total;i++){
+		
+		fprintf (arq, "\nNome= %s",func[i].nome);
+		fprintf (arq, "\ncpf= %d",func[i].cpf);		
+		fprintf (arq, "\nSexo= %s",func[i].sexo);
+		fprintf (arq, "\nIdade= %d",func[i].idade);
+		fprintf (arq, "\nHoras trabalhadas= %.2f",func[i].hrs_t);
+		fprintf (arq, "\nValor das horas trabalhadas= %.2f",func[i].valor_hrs);
+		fprintf (arq, "\nSalário Bruto= %.2f",func[i].salario);
+		fprintf (arq, "\nSalário Liquido= %.2f",func[i].salario_l);
+	}
+	cout<<endl<<"Arquivo criado com sucesso!"<<endl; fclose(arq);
+	cout<<endl<<"Você será redirecionado ao menu principal"<<endl;
+    cout<<" "<<endl;
+    system("pause");
+	
+}
+}
+
+void upload_arq(){  
+	
+bruto();
+liquido();
+FILE *arq;
+
+   
+	cout<<endl<<"-----------------------------------------------------------------------"<<endl;
+	cout<<"O arquivo que será carregado deve estar no mesmo diretório do sistema"<<endl; 
+	cout<<"-----------------------------------------------------------------------"<<endl;
+	cout<<"Lembre-se de adicionar a extensão '.txt' junto do nome do programa"<<endl; 
+	cout<<"-----------------------------------------------------------------------"<<endl;
+   
+   cout<<endl<<"Digite o nome do arquivo: "; cin>>arq_name;
+   arq = fopen(arq_name,"r");
+   if (arq == NULL){
+   	cout<<endl<<"não foi possível carregar o arquivo"<<endl;
+   }else{
+   	    fseek (arq,7,0);
+		fscanf (arq, "%d\n", &total);
+			
+	for(int i=0;i<total;i++){
+		fseek(arq,6,1); fscanf(arq,"%s\n",func[i].nome);
+		fseek(arq,5,1); fscanf(arq,"%d\n",&func[i].cpf);
+		fseek(arq,6,1); fscanf(arq,"%s\n",func[i].sexo);
+		fseek(arq,7,1); fscanf(arq,"%d\n",&func[i].idade);
+		fseek(arq,19,1); fscanf(arq,"%f\n",&func[i].hrs_t);
+		fseek(arq,29,1); fscanf(arq,"%f\n",&func[i].valor_hrs);
+		fseek(arq,15,1); fscanf(arq,"%f\n",&func[i].salario);
+		fseek(arq,17,1); fscanf(arq,"%f\n",&func[i].salario_l);
+	}
+   
+}
+
+fclose(arq);
+    
+	cout<<endl<<"Arquivo carregado com sucesso!"<<endl;
+	cout<<endl<<"Você será redirecionado ao menu principal"<<endl;
+    cout<<" "<<endl;
+    	system("pause");
+	
+}
+
+void menu_listagem(){
+
+int op;
+	
+	do{
+		system("cls");
+		cout<<endl<<"LISTAGEM DOS FUNCIONÁRIOS CADASTRADOS"<<endl;
+		cout<<"--------------------------------"<<endl;
+	   	cout<<"1 - Todos os funcionários"<<endl;
+		cout<<"2 - Funcionários com salário inferior a R$ 5000"<<endl;	
+		cout<<"3 - Funcionários com salário inferior a R$ 1000"<<endl;
+		cout<<"4 - Funcionários com salário superior a R$ 4000"<<endl;
+		cout<<"5 - Funcionários com salário superior ou igual a R$ 5000"<<endl;
+		cout<<"6 - Funcionários com salário superior ou igual a R$ 7000"<<endl;
+		cout<<"7 - Funcionários com salário superior ou igual a R$ 10000"<<endl;
+	
+		cout<<"0 - Menu Principal"<<endl<<endl;
+		cout<<"Comando: "; cin>>op;
+		getchar();
+		
+//Estrutura de exibição de dados dentro da Opção Listagem. Apresenta os dados a parti da opoção escolhida anteriormente.
+
+		switch(op){
+			
+			case 1:
+			   todos();
+			break;
+			/*
+			case 2:
+				lista_apr();
+			break;
+			
+			case 3:
+				lista_rep();
+			break;
+			
+			case 4:
+		         rep_5();
+		    break;
+		    
+		    case 5:
+		    	rep_7();
+		    break;
+		    
+		    case 6:
+		    	apr_7();
+		    break;
+		    
+		    case 7:
+		    	apr_9();
+		    break;
+		    */
+			case 0:
+				main_menu();
+			break;
+			
+			default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+			break;
+		}
+	}while(op!=0);
+
+}
+
+void todos(){
+int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********TODOS OS FUNCIONÁRIOS CADASTRADOS***********"<<endl;
+		cout<<"-------------------------------"<<endl;
+    cout<<"Total de funcionários: "<<total<<endl;
+    	cout<<"-------------------------------"<<endl;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+
+void salario_inferior500(){
+	int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l<=500 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+
+void salario_inferior1000(){
+	int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l<=1000 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+void salario_maior4000(){
+int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l>=4000 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+void salario_maior5000(){
+int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l>=5000 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+void salario_maior7000(){
+int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l>=7000 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
+void salario_maior10000(){
+int op;
+	
+	bruto();
+	liquido();
+	
+	
+	system("cls");
+	
+	cout<<endl<<"***********FUNCIONÁRIOS CADASTRADOS***********"<<endl;;
+
+	for(int i=0;i<MAX;i++){
+		if(func[i].salario_l>=10000 && func[i].cpf!=0){
+			cout<<"Nome: "<<func[i].nome<<endl;
+			cout<<"Sexo: "<<func[i].sexo<<endl;
+			cout<<"Idade: "<<func[i].idade<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].hrs_t<<endl;
+			cout<<"Horas trabalhadas: "<<func[i].valor_hrs<<endl;
+			cout<<"Salário bruto: "<<func[i].salario<<endl;
+			cout<<"Salário liquido: "<<func[i].salario_l<<endl;
+			cout<<endl<<"-------------------------------"<<endl<<endl;
+		}
+	}
+	
+	cout<<endl<<"1 - Menu de listagem"<<endl;
+	cout<<"0 - Menu principal"<<endl;
+	cout<<endl<<"Comando: "; cin>>op; 
+	
+//Estrutura de SubMenu dentro da Opção Listagem
+	
+	switch(op){
+		case 1:
+			menu_listagem();
+		break;
+		
+		case 0:
+			main_menu();
+		break;
+		
+		default:
+			cout<<endl<<"Error! Comando inválido"<<endl;
+			system("pause");
+			main_menu();
+		break;
+	}
+}
